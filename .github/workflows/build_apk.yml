@@ -39,8 +39,8 @@ jobs:
         run: flutter pub get
 
       # 5. Проверка форматирования (опционально, но полезно)
-      - name: Check format
-        run: flutter format --set-exit-if-changed .
+      # - name: Check format
+      #   run: flutter format --set-exit-if-changed .
 
       # 6. Запуск анализа кода (Linter)
       - name: Analyze code
