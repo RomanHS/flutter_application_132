@@ -1,0 +1,47 @@
+# Название воркфлоу
+name: Flutter Build iOS
+
+# Определяем события, которые запускают воркфлоу
+on:
+  # Запуск при создании или обновлении пул-реквеста
+  pull_request:
+    # Целевая ветка — release
+    branches:
+      - release
+
+# Список задач
+jobs:
+  build:
+    # Операционная система для запуска — macOS (необходима для сборки iOS)
+    runs-on: macos-latest
+
+    steps:
+      # 1. Шаг для клонирования репозитория
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Установка Flutter
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.x'
+          channel: 'stable'
+
+      # 3. Получение зависимостей проекта
+      - name: Install dependencies
+        run: flutter pub get
+
+      # 4. Запуск анализа кода (Linter)
+      - name: Analyze code
+        run: flutter analyze
+
+      # 5. Сборка iOS (без подписи для проверки в PR)
+      - name: Build iOS
+        run: flutter build ios --release --no-codesign
+
+      # 6. Сохранение артефакта (собранного приложения), чтобы его можно было скачать
+      - name: Upload iOS Build
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-ios
+          path: build/ios/iphoneos/Runner.app
