@@ -46,13 +46,13 @@ jobs:
       - name: Analyze code
         run: flutter analyze
 
-      # 7. Сборка APK (debug версия для ускорения проверки в PR)
+      # 7. Сборка APK (release версия для ускорения проверки в PR)
       - name: Build APK
-        run: flutter build apk --debug
+        run: flutter build apk --release
 
       # 8. Сохранение артефакта (собранного APK), чтобы его можно было скачать
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: debug-apk
-          path: build/app/outputs/flutter-apk/app-debug.apk
+          name: release-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
