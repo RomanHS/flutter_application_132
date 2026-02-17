@@ -4,7 +4,7 @@ name: Flutter Build iOS
 # Определяем события, которые запускают воркфлоу
 on:
   # Запуск при создании или обновлении пул-реквеста
-  pull_request:
+  push:
     # Целевая ветка — release
     branches:
       - release
